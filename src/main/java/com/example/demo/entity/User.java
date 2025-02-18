@@ -18,6 +18,7 @@ public class User {
     private String name;
     private String password;
     private String username;
+    private String imageUrl;
 
     // Constructors
     public User() {
@@ -28,6 +29,7 @@ public class User {
         this.name = name;
         this.password = password;
         this.username = username;
+        this.imageUrl = imageUrl;
     }
 
     // Getters and Setters
@@ -69,5 +71,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
