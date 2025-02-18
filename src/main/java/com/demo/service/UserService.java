@@ -29,8 +29,12 @@ public class UserService {
     // Create a new user with image upload
     public User createUser(String name, String email, String username, String password, MultipartFile imageFile) {
         try {
-            // Upload image to MinIO and get the URL
-            String imageUrl = minioService.uploadFile(imageFile);
+            // Use the username as the custom file name
+           // String customFileName = username + "-" + imageFile.getOriginalFilename();  // Combine username with the original file name (or you can just use username)
+            String customFileName = username;
+
+            // Upload image to MinIO and get the URL, passing the custom file name
+            String imageUrl = minioService.uploadFile(imageFile, customFileName);
 
             // Create user entity
             User user = new User();
@@ -46,5 +50,4 @@ public class UserService {
             throw new RuntimeException("Error uploading file: " + e.getMessage());
         }
     }
-
 }

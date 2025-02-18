@@ -33,9 +33,13 @@ public class MinioService {
                 .build();
     }
 
-    public String uploadFile(MultipartFile file) throws Exception {
+    // Upload file with an optional custom file name
+    public String uploadFile(MultipartFile file, String customFileName) throws Exception {
         try {
-            String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
+            // If customFileName is not provided, use UUID + original file name
+            String fileName = (customFileName != null && !customFileName.isEmpty())
+                    ? customFileName
+                    : UUID.randomUUID() + "-" + file.getOriginalFilename();
 
             minioClient.putObject(
                     PutObjectArgs.builder()
@@ -52,6 +56,7 @@ public class MinioService {
         }
     }
 
+    // Get file from MinIO by file name
     public InputStream getFile(String fileName) throws Exception {
         try {
             return minioClient.getObject(
@@ -65,6 +70,7 @@ public class MinioService {
         }
     }
 
+    // Delete file from MinIO by file name
     public void deleteFile(String fileName) throws Exception {
         try {
             minioClient.removeObject(
