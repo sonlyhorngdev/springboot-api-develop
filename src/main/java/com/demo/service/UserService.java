@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.demo.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.entity.User;
-import com.example.demo.repository.UserRepository;
+import com.demo.entity.User;
+import com.demo.repository.UserRepository;
 
 @Service
 public class UserService {

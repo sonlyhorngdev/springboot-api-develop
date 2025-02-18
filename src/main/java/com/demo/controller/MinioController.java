@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.demo.controller;
 
 import java.io.InputStream;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.service.MinioService;
+import com.demo.service.MinioService;
 
 @RestController
 @RequestMapping("/api/minio")

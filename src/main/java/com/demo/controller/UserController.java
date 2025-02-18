@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.demo.controller;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.dto.ApiResponse;
-import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
+import com.demo.dto.ApiResponse;
+import com.demo.entity.User;
+import com.demo.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")

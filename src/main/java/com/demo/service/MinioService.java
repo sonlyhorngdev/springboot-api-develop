@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.demo.service;
 
 import java.io.InputStream;
 import java.util.UUID;
