@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.entity.User;
 import com.demo.repository.UserRepository;
+import com.demo.util.FileNameUtil;
 
 @Service
 public class UserService {
@@ -29,14 +30,14 @@ public class UserService {
     // Create a new user with image upload
     public User createUser(String name, String email, String username, String password, MultipartFile imageFile) {
         try {
-            // Use the username as the custom file name
-           // String customFileName = username + "-" + imageFile.getOriginalFilename();  // Combine username with the original file name (or you can just use username)
-            String customFileName = username;
 
-            // Upload image to MinIO and get the URL, passing the custom file name
+            // Use the utility class to generate a custom file name (timestamp-based or unique)
+            String customFileName = FileNameUtil.generateTimestampBasedFileName(imageFile.getOriginalFilename()); // Or use generateUniqueFileName()
+
+            // Upload image to MinIO and get the URL
             String imageUrl = minioService.uploadFile(imageFile, customFileName);
 
-            // Create user entity
+            // Create user entity and set properties
             User user = new User();
             user.setName(name);
             user.setEmail(email);
@@ -44,7 +45,7 @@ public class UserService {
             user.setPassword(password);
             user.setImageUrl(imageUrl);
 
-            // Save user
+            // Save and return the created user
             return userRepository.save(user);
         } catch (Exception e) {
             throw new RuntimeException("Error uploading file: " + e.getMessage());
