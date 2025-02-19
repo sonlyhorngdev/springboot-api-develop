@@ -27,28 +27,32 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    // Create a new user with image upload
     public User createUser(String name, String email, String username, String password, MultipartFile imageFile) {
         try {
-
-            // Use the utility class to generate a custom file name (timestamp-based or unique)
-            String customFileName = FileNameUtil.getFileExtension(imageFile.getOriginalFilename()); // Or use generateUniqueFileName()
-
-            // Upload image to MinIO and get the URL
+            String customFileName = FileNameUtil.getFileExtension(imageFile.getOriginalFilename());
             String imageUrl = minioService.uploadFile(imageFile, customFileName);
-
-            // Create user entity and set properties
+    
+            // Hardcoded base URL to strip off (change this as per your configuration)
+            String baseUrl = "http://localhost:9000/my-bucket/";
+    
+            // Extract the relative path (removing the base URL)
+            String relativePath = imageUrl.replace(baseUrl, "");
+    
+            // Debugging output
+            System.out.println("Full Image URL: " + imageUrl);
+            System.out.println("Saved Relative Path: " + relativePath);
+    
             User user = new User();
             user.setName(name);
             user.setEmail(email);
             user.setUsername(username);
             user.setPassword(password);
-            user.setImageUrl(imageUrl);
-
-            // Save and return the created user
+            user.setImageUrl(relativePath); // Save only the relative path
+    
             return userRepository.save(user);
         } catch (Exception e) {
             throw new RuntimeException("Error uploading file: " + e.getMessage());
         }
     }
+    
 }
