@@ -32,7 +32,7 @@ public class UserService {
         try {
 
             // Use the utility class to generate a custom file name (timestamp-based or unique)
-            String customFileName = FileNameUtil.generateTimestampBasedFileName(imageFile.getOriginalFilename()); // Or use generateUniqueFileName()
+            String customFileName = FileNameUtil.getFileExtension(imageFile.getOriginalFilename()); // Or use generateUniqueFileName()
 
             // Upload image to MinIO and get the URL
             String imageUrl = minioService.uploadFile(imageFile, customFileName);
